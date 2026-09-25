@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Warkop Kita — Menu & Pesan</title>
+  <meta name="description" content="Lihat menu warkop dan pesan langsung lewat WhatsApp." />
+  <meta name="theme-color" content="#013FD0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#top" class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3v2M12 3v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand__name" data-store-name>Warkop Kita</span>
+      </a>
+      <nav class="nav__links" aria-label="Navigasi utama">
+        <a href="#menu">Menu</a>
+        <a href="#cara-pesan">Cara Pesan</a>
+        <a href="#lokasi">Lokasi</a>
+      </nav>
+      <button class="btn btn--primary btn--sm" data-open-cart>
+        Keranjang <span class="badge" data-cart-count>0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <span class="pill" data-status>
+            <span class="dot"></span><span data-status-text>Memuat jam buka…</span>
+          </span>
+          <h1 class="hero__title">
+            Ngopi santai,<br />
+            <span class="hl">pesan tanpa antre.</span>
+          </h1>
+          <p class="hero__lead">
+            Scan, pilih menu, kirim pesanan lewat WhatsApp. Kopi tubruk sampai
+            es kopi susu gula aren, Indomie telur sampai gorengan hangat.
+          </p>
+          <div class="hero__actions">
+            <a href="#menu" class="btn btn--primary">Lihat Menu</a>
+            <a href="#cara-pesan" class="btn btn--ghost">Cara Pesan</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="ticket">
+            <div class="ticket__head">
+              <span>Pesanan #017</span>
+              <span class="chip chip--amber">Meja 4</span>
+            </div>
+            <ul class="ticket__list">
+              <li><span>2× Es Kopi Susu Gula Aren</span><b>Rp30.000</b></li>
+              <li><span>1× Indomie Goreng Telur</span><b>Rp12.000</b></li>
+              <li><span>3× Pisang Goreng</span><b>Rp6.000</b></li>
+            </ul>
+            <div class="ticket__total"><span>Total</span><b>Rp48.000</b></div>
+            <div class="ticket__wa">Terkirim via WhatsApp ✓</div>
+          </div>
+          <div class="float-card float-card--a"><b>±5 mnt</b><span>siap disajikan</span></div>
+          <div class="float-card float-card--b"><b>Rp2rb</b><span>mulai dari</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats strip -->
+    <section class="stats">
+      <div class="container stats__grid">
+        <div><b data-stat-items>0</b><span>Pilihan menu</span></div>
+        <div><b>Rp2rb</b><span>Harga mulai</span></div>
+        <div><b>±5 mnt</b><span>Waktu saji</span></div>
+        <div><b>0</b><span>Aplikasi yang perlu diunduh</span></div>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Menu</span>
+          <h2>Dari kopi tubruk sampai kopi kekinian.</h2>
+          <p>Harga dalam Rupiah. Tap <b>+</b> untuk menambah ke keranjang.</p>
+        </div>
+
+        <div class="toolbar">
+          <div class="tabs" role="tablist" data-tabs></div>
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="search" placeholder="Cari menu…" data-search aria-label="Cari menu" />
+          </label>
+        </div>
+
+        <div class="menu-grid" data-menu-grid></div>
+        <p class="empty" data-menu-empty hidden>Menu tidak ditemukan.</p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section section--mist" id="cara-pesan">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Cara Pesan</span>
+          <h2>Tiga langkah, langsung disajikan.</h2>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <span class="step__num">01</span>
+            <h3>Pilih menu</h3>
+            <p>Scan QR di meja atau buka halaman ini, lalu tambahkan menu ke keranjang.</p>
+          </article>
+          <article class="step">
+            <span class="step__num">02</span>
+            <h3>Isi nama & meja</h3>
+            <p>Pilih makan di tempat atau bawa pulang, tambah catatan seperti "gula sedikit".</p>
+          </article>
+          <article class="step">
+            <span class="step__num">03</span>
+            <h3>Kirim via WhatsApp</h3>
+            <p>Pesanan terkirim ke kasir dalam format rapi. Tinggal duduk dan tunggu.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA band -->
+    <section class="cta">
+      <div class="container cta__inner">
+        <h2>Lapar tengah malam? <span class="hl">Indomie telur siap.</span></h2>
+        <a href="#menu" class="btn btn--amber">Pesan Sekarang</a>
+      </div>
+    </section>
+
+    <!-- Location -->
+    <section class="section" id="lokasi">
+      <div class="container loc">
+        <div>
+          <span class="eyebrow">Lokasi & Jam Buka</span>
+          <h2>Mampir, nongkrong, ngobrol.</h2>
+          <dl class="info">
+            <div><dt>Alamat</dt><dd data-address></dd></div>
+            <div><dt>Jam buka</dt><dd data-hours></dd></div>
+            <div><dt>WhatsApp</dt><dd><a data-wa-link target="_blank" rel="noopener"></a></dd></div>
+          </dl>
+          <a class="btn btn--ghost" data-maps-link target="_blank" rel="noopener">Buka di Google Maps</a>
+        </div>
+        <div class="map">
+          <iframe data-map title="Peta lokasi" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span data-year></span> <span data-store-name>Warkop Kita</span></span>
+      <a data-ig-link target="_blank" rel="noopener"></a>
+    </div>
+  </footer>
+
+  <!-- Mobile floating cart bar -->
+  <button class="cart-bar" data-open-cart data-cart-bar hidden>
+    <span><b data-cart-count>0</b> item</span>
+    <span>Lihat Keranjang · <b data-cart-total>Rp0</b></span>
+  </button>
+
+  <!-- Cart drawer -->
+  <div class="overlay" data-overlay hidden></div>
+  <aside class="drawer" data-drawer aria-hidden="true" aria-label="Keranjang">
+    <div class="drawer__head">
+      <h3>Keranjang</h3>
+      <button class="icon-btn" data-close-cart aria-label="Tutup">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="drawer__body">
+      <ul class="cart-list" data-cart-list></ul>
+      <p class="empty" data-cart-empty>Keranjang masih kosong.</p>
+
+      <form class="order-form" data-order-form novalidate>
+        <div class="seg" role="radiogroup" aria-label="Tipe pesanan">
+          <label><input type="radio" name="type" value="Makan di tempat" checked /><span>Makan di tempat</span></label>
+          <label><input type="radio" name="type" value="Bawa pulang" /><span>Bawa pulang</span></label>
+        </div>
+        <label class="field">
+          <span>Nama</span>
+          <input name="name" autocomplete="name" placeholder="Nama kamu" required />
+        </label>
+        <label class="field" data-table-field>
+          <span>Nomor meja</span>
+          <input name="table" inputmode="numeric" placeholder="cth. 4" />
+        </label>
+        <label class="field">
+          <span>Catatan (opsional)</span>
+          <textarea name="note" rows="2" placeholder="cth. gula sedikit, telur matang"></textarea>
+        </label>
+        <p class="form-error" data-form-error hidden></p>
+      </form>
+    </div>
+
+    <div class="drawer__foot">
+      <div class="total"><span>Total</span><b data-cart-total>Rp0</b></div>
+      <button class="btn btn--primary btn--block" data-checkout>Kirim Pesanan via WhatsApp</button>
+      <button class="link-btn" data-clear-cart>Kosongkan keranjang</button>
+    </div>
+  </aside>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
