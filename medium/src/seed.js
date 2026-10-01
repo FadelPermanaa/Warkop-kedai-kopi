@@ -1,5 +1,6 @@
 'use strict';
 // Demo data: a cashier account, stock for a few items and 30 days of sales.
+// Today's drawer is left open, as if the shift is still running.
 //   npm run seed   (only on a database without sales; delete the "data" folder to start over)
 process.env.TZ = process.env.TZ || 'Asia/Jakarta';
 const { db, tx, now } = require('./db');
@@ -51,7 +52,11 @@ tx(() => {
   const notes = ['', '', '', '', 'tidak pedas', 'es sedikit', 'gula dipisah'];
 
   let made = 0;
-  for (let back = 30; back >= 1; back--) {
+  // Today gets the sales so far and a drawer that is still open, like a shift in progress.
+  const nowHour = new Date().getHours();
+  for (let back = 30; back >= 0; back--) {
+    const isToday = back === 0;
+    if (isToday && nowHour < 8) break;
     const day = new Date(); day.setDate(day.getDate() - back);
     const weekend = [0, 6].includes(day.getDay());
     const count = Math.round((weekend ? 34 : 24) + rnd() * 12);
@@ -60,7 +65,8 @@ tx(() => {
     const shiftId = Number(db.prepare('INSERT INTO shifts (opened_by, opened_at, opening_cash) VALUES (?, ?, ?)').run(cashier, stamp(day, 6, 0), opening).lastInsertRowid);
     const code = `${String(day.getFullYear()).slice(2)}${z(day.getMonth() + 1)}${z(day.getDate())}`;
     let cash = 0;
-    const times = Array.from({ length: count }, () => [pick(hours), Math.floor(rnd() * 60)]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const times = Array.from({ length: count }, () => [pick(hours), Math.floor(rnd() * 60)]).sort((a, b) => a[0] - b[0] || a[1] - b[1])
+      .filter(([h]) => !isToday || h + 1 < nowHour);
     times.forEach(([h, m], i) => {
       const takeAway = rnd() < 0.25;
       const fromQr = !takeAway && rnd() < 0.3;
@@ -87,11 +93,12 @@ tx(() => {
       }
       made++;
     });
+    if (isToday) continue;
     const expected = opening + cash;
     const diff = rnd() < 0.8 ? 0 : pick([-5000, -2000, 1000, 3000]);
     db.prepare('UPDATE shifts SET closed_by = ?, closed_at = ?, expected_cash = ?, counted_cash = ?, note = ? WHERE id = ?')
       .run(cashier, stamp(day, 23, 10), expected, expected + diff, diff ? 'Selisih uang kecil' : '', shiftId);
   }
-  console.log(`Data contoh dibuat: ${made} transaksi selama 30 hari terakhir.`);
+  console.log(`Data contoh dibuat: ${made} transaksi selama 30 hari terakhir dan hari ini.`);
   console.log('Akun kasir contoh: kasir / kasir123');
 });
