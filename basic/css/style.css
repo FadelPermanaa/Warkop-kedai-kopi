@@ -326,6 +326,11 @@ p { margin: 0; }
   .nav__links { display: none; }
   .nav .btn { display: none; }
   .hero { padding: 48px 0 64px; }
+  /* Room above and below the ticket so the floating cards sit beside it
+     instead of covering the table chip and the WhatsApp line. */
+  .hero__visual { padding: 52px 0 60px; }
+  .float-card--a { top: 0; right: 4px; }
+  .float-card--b { bottom: 0; left: 4px; }
   .section { padding: 72px 0; }
   .toolbar { flex-direction: column; align-items: stretch; }
   .search { min-width: 0; }
