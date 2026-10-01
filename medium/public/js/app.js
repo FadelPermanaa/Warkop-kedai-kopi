@@ -8,6 +8,7 @@
   const num = (v) => Number(String(v ?? '').replace(/[^\d-]/g, '')) || 0;
 
   async function api(path, { method = 'GET', body } = {}) {
+    if (method !== 'GET' && body === undefined) body = {}; // the server only accepts JSON for changes
     const res = await fetch(path, {
       method,
       headers: body !== undefined ? { 'Content-Type': 'application/json' } : {},

@@ -15,6 +15,8 @@ router.get('/shop', (req, res) => {
   res.json({ name: s.shop_name, tagline: s.shop_tagline, address: s.shop_address, phone: s.shop_phone, footer: s.receipt_footer, qris: !!s.qris_image, qris_name: s.qris_name });
 });
 
+router.get('/shop/qris', (req, res) => res.json({ image: settings.get('qris_image'), name: settings.get('qris_name') }));
+
 router.get('/incoming/count', (req, res) => {
   res.json({ pending: db.prepare("SELECT COUNT(*) n FROM table_requests WHERE status = 'pending'").get().n });
 });

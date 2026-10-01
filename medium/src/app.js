@@ -53,6 +53,7 @@ app.use('/api', (req, res, next) => {
 app.use('/api', require('./routes/auth'));
 app.use('/api/public', require('./routes/public'));
 app.use('/api', require('./routes/staff'));
+app.use('/api', require('./routes/orders'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Alamat API tidak ditemukan.' }));
 

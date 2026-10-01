@@ -1,0 +1,23 @@
+/* 58 mm thermal paper: ~48 mm printable width. */
+@page { size: 58mm auto; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #eef1f6; font: 12px/1.35 'Courier New', ui-monospace, monospace; color: #000; }
+.tools { display: flex; gap: 8px; justify-content: center; padding: 12px; }
+.tools button { font: 600 14px system-ui, sans-serif; padding: 9px 18px; border-radius: 999px; border: 1px solid #ccd; background: #fff; cursor: pointer; }
+.tools button:first-child { background: #013fd0; color: #fff; border-color: #013fd0; }
+.struk { width: 58mm; margin: 0 auto 24px; padding: 4mm 5mm 8mm; background: #fff; box-shadow: 0 6px 24px -10px rgba(0,0,0,.3); }
+header, footer, .stamp { text-align: center; }
+.shop { display: block; font-size: 15px; text-transform: uppercase; margin-bottom: 2px; }
+.rule { border-top: 1px dashed #000; margin: 6px 0; }
+.kv { display: flex; justify-content: space-between; gap: 6px; }
+.kv span:last-child { text-align: right; white-space: nowrap; }
+.item { margin-top: 3px; }
+.item-note { font-size: 11px; }
+.total { font-weight: 700; font-size: 14px; margin: 3px 0; }
+.stamp { font-weight: 700; margin: 6px 0; padding: 3px; border: 1px solid #000; }
+footer { margin-top: 8px; }
+@media print {
+  body { background: #fff; }
+  .tools { display: none; }
+  .struk { margin: 0; box-shadow: none; width: 58mm; }
+}
