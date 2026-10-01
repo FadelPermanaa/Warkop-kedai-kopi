@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const orders = require('../services/orders');
+const requests = require('../services/requests');
 const tables = require('../services/tables');
 const audit = require('../services/audit');
 const { db } = require('../db');
@@ -80,6 +81,19 @@ router.delete('/orders/:id', (req, res) => {
   const o = orders.discardEmpty(id(req.params.id));
   log(req, 'bon.hapus-kosong', o.code);
   res.json({ ok: true });
+});
+
+// ---- orders sent from the table QR
+router.get('/incoming', (req, res) => res.json(requests.list()));
+router.post('/incoming/:id/accept', (req, res) => {
+  const { request, order } = requests.accept(id(req.params.id), req.body || {}, req.user.id);
+  log(req, 'meja.terima', `${request.table_name} · ${request.customer_name} → ${order.code}`);
+  res.json({ request, order });
+});
+router.post('/incoming/:id/reject', (req, res) => {
+  const r = requests.reject(id(req.params.id), (req.body || {}).reason, req.user.id);
+  log(req, 'meja.tolak', `${r.table_name} · ${r.customer_name}: ${r.reject_reason}`);
+  res.json({ request: r });
 });
 
 /** Summary for the top of the cashier screen. */
