@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Kasir Warkop — video demo</title>
+<link rel="stylesheet" href="fonts/poppins.css">
+<style>
+:root {
+  --blue: #013fd0; --blue-700: #0131a3; --blue-50: #e8eefc; --amber: #ffb423; --amber-50: #fff6e0; --mist: #f0fafb;
+  --ink: #0b1b3f; --muted: #56627e; --line: #dfe7f1; --ok: #12824a; --bad: #e0384d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+body { font-family: 'Poppins', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--mist); }
+body.v #stage { width: 1080px; height: 1920px; }
+.abs { position: absolute; }
+.full { position: absolute; inset: 0; }
+#bg-dots { background-image: radial-gradient(rgba(1,63,208,.11) 2px, transparent 2.5px); background-size: 44px 44px; }
+#bg-glow { background: radial-gradient(55% 50% at 85% 15%, rgba(232,238,252,1), transparent 70%), radial-gradient(45% 45% at 5% 95%, rgba(255,180,35,.2), transparent 70%); }
+#bg-dark { background: radial-gradient(80% 70% at 50% 40%, #13275a, #050c20 75%); }
+
+/* ---------- Hook ---------- */
+#cloud { left: 50%; top: 150px; width: 260px; margin-left: -130px; }
+body.v #cloud { top: 380px; width: 300px; margin-left: -150px; }
+#cloud .slash { stroke-dasharray: 320; }
+.err { position: absolute; display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; border-radius: 16px; background: #fff; font-size: 24px; font-weight: 600; box-shadow: 0 22px 44px -14px rgba(0,0,0,.6); white-space: nowrap; }
+.err i { width: 30px; height: 30px; border-radius: 50%; background: var(--bad); color: #fff; display: grid; place-items: center; font-style: normal; font-weight: 800; font-size: 18px; }
+.hook { position: absolute; left: 0; right: 0; text-align: center; color: #fff; font-weight: 800; letter-spacing: -.03em; line-height: 1.08; }
+.hook .line { display: block; overflow: hidden; padding-bottom: .08em; }
+.hook .line span { display: inline-block; white-space: nowrap; }
+#hook { top: 470px; font-size: 100px; }
+body.v #hook { top: 800px; font-size: 76px; }
+.hl { color: var(--ink); background: var(--amber); border-radius: 18px; padding: 0 .18em; }
+#wipe { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: var(--amber); }
+#wipe2 { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: var(--mist); }
+
+/* ---------- Title ---------- */
+#logo { left: 0; right: 0; top: 230px; text-align: center; }
+body.v #logo { top: 560px; }
+#logo-mark { display: inline-grid; place-items: center; width: 170px; height: 170px; border-radius: 48px; background: var(--blue); color: #fff; box-shadow: 0 30px 60px -20px rgba(1,63,208,.6); }
+#logo-name { font-size: 124px; font-weight: 800; letter-spacing: -.045em; margin-top: 24px; line-height: 1.02; }
+#logo-name em { font-style: normal; color: var(--blue); }
+#logo-name .w { display: inline-block; }
+#tagline { font-size: 36px; font-weight: 500; color: var(--muted); margin-top: 20px; }
+body.v #tagline { font-size: 34px; padding: 0 70px; }
+.chips { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+body.v .chips { padding: 0 50px; }
+.chip { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 999px; font-size: 26px; font-weight: 600; background: #fff; border: 2px solid var(--line); white-space: nowrap; }
+.chip .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--blue); }
+.chip.amber { background: var(--amber); border-color: var(--amber); }
+.chip.amber .dot { background: var(--ink); }
+.chip.blue { background: var(--blue); border-color: var(--blue); color: #fff; }
+.chip.blue .dot { background: var(--amber); }
+
+/* ---------- How it works ---------- */
+#how-head { left: 0; right: 0; top: 120px; text-align: center; font-size: 66px; font-weight: 800; letter-spacing: -.035em; line-height: 1.1; }
+#how-head em { font-style: normal; color: var(--blue); }
+body.v #how-head { top: 250px; font-size: 76px; padding: 0 60px; }
+#how-lines { left: 0; top: 0; }
+.node { position: absolute; width: 300px; text-align: center; }
+.node .ic { width: 170px; height: 170px; margin: 0 auto 18px; border-radius: 44px; display: grid; place-items: center; background: #fff; border: 3px solid var(--line); box-shadow: 0 30px 60px -28px rgba(11,27,63,.5); color: var(--blue); }
+.node.main .ic { width: 210px; height: 210px; background: var(--blue); border-color: var(--blue); color: #fff; }
+.node b { display: block; font-size: 30px; letter-spacing: -.02em; }
+.node span { display: block; font-size: 22px; color: var(--muted); margin-top: 4px; }
+.node.off .ic { color: var(--muted); }
+.node.off b { color: var(--muted); }
+.node .x { position: absolute; left: 50%; top: 116px; margin-left: 40px; width: 64px; height: 64px; border-radius: 50%; background: var(--bad); color: #fff; display: grid; place-items: center; font-size: 36px; font-weight: 800; border: 5px solid var(--mist); }
+
+/* ---------- Laptop & phone ---------- */
+#laptop { position: absolute; transform-origin: 0 0; }
+#laptop .lid { position: relative; padding: 16px 16px 20px; border-radius: 26px 26px 10px 10px; background: #0d1530; box-shadow: 0 60px 100px -40px rgba(11,27,63,.6); }
+#laptop .lid::before { content: ''; position: absolute; left: 50%; top: 6px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #2a3a66; }
+#laptop .screen { position: relative; overflow: hidden; border-radius: 6px; background: #fff; aspect-ratio: 2049 / 1152; }
+#laptop .base { position: relative; height: 26px; margin: 0 -100px; border-radius: 0 0 26px 26px; background: linear-gradient(#cfd8e8, #9aa8c2); }
+#laptop .base::before { content: ''; position: absolute; left: 50%; top: 0; width: 180px; height: 9px; margin-left: -90px; border-radius: 0 0 10px 10px; background: #8796b3; }
+body:not(.v) #laptop { left: 140px; top: 175px; width: 1180px; }
+body.v #laptop { left: 90px; top: 590px; width: 900px; }
+#lens { position: absolute; left: 60px; top: 1210px; width: 960px; height: 600px; border-radius: 32px; overflow: hidden; background: #fff; border: 6px solid #0d1530; box-shadow: 0 50px 90px -30px rgba(11,27,63,.55); display: none; }
+body.v #lens { display: block; }
+#lens .cam { width: 948px; height: 533px; }
+#lens-tag { position: absolute; left: 470px; top: 1176px; z-index: 5; display: none; }
+body.v #lens-tag { display: inline-flex; }
+.cam { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform-origin: 0 0; }
+.cam > img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; }
+#cursor { position: absolute; width: 0; height: 0; z-index: 50; }
+#cursor svg { position: absolute; left: -4px; top: -3px; width: 34px; filter: drop-shadow(0 4px 6px rgba(0,0,0,.35)); }
+.ring { position: absolute; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 5px solid var(--amber); background: rgba(255,180,35,.25); z-index: 49; }
+
+.phone { position: absolute; width: 400px; padding: 14px; border-radius: 62px; background: #0d1530; box-shadow: 0 50px 90px -30px rgba(11,27,63,.55); }
+.phone .screen { position: relative; width: 100%; aspect-ratio: 390 / 844; border-radius: 48px; overflow: hidden; background: #fff; }
+.phone .screen > img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; }
+.phone .notch { position: absolute; left: 50%; top: 22px; width: 104px; height: 30px; margin-left: -52px; border-radius: 20px; background: #0d1530; z-index: 3; }
+.tap { position: absolute; width: 22%; aspect-ratio: 1; margin: 0; border-radius: 50%; background: rgba(255,180,35,.45); border: 4px solid var(--amber); transform: translate(-50%, -50%); z-index: 4; }
+body:not(.v) #phone { left: 1070px; top: 120px; }
+body.v #phone { left: 580px; top: 560px; width: 450px; }
+
+/* Receipt */
+#struk { position: absolute; width: 270px; transform-origin: 50% 0; }
+#struk .paper { position: relative; padding: 0; background: #fff; box-shadow: 0 30px 60px -20px rgba(11,27,63,.45); }
+#struk .paper::after { content: ''; position: absolute; left: 0; right: 0; bottom: -12px; height: 12px; background: linear-gradient(-45deg, transparent 8px, #fff 0) 0 0 / 16px 12px repeat-x, linear-gradient(45deg, transparent 8px, #fff 0) 0 0 / 16px 12px repeat-x; }
+#struk img { display: block; width: 100%; }
+body:not(.v) #struk { left: 1060px; top: 300px; }
+body.v #struk { left: 660px; top: 860px; width: 330px; }
+#struk-tag { position: absolute; left: 50%; top: -58px; transform: translateX(-50%); }
+
+/* New order notification */
+#notif { position: absolute; display: flex; align-items: center; gap: 16px; padding: 16px 26px 16px 18px; border-radius: 22px; background: #fff; box-shadow: 0 30px 60px -20px rgba(11,27,63,.5); border: 2px solid #ffd27a; white-space: nowrap; }
+#notif .bell { width: 54px; height: 54px; border-radius: 16px; background: var(--amber); display: grid; place-items: center; }
+#notif b { display: block; font-size: 26px; }
+#notif span { font-size: 20px; color: var(--muted); }
+body:not(.v) #notif { left: 260px; top: 120px; }
+body.v #notif { left: 50px; top: 1060px; }
+
+/* ---------- Captions ---------- */
+.copy { position: absolute; width: 520px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
+.eyebrow::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--amber); }
+.copy h2 { font-size: 58px; line-height: 1.07; letter-spacing: -.035em; font-weight: 800; margin: 18px 0 28px; }
+.copy h2 em { font-style: normal; color: var(--blue); }
+.copy ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.copy li { display: flex; align-items: center; gap: 16px; font-size: 26px; font-weight: 500; color: var(--muted); }
+.copy li b { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 21px; }
+body:not(.v) .copy { left: 1395px; top: 250px; }
+body:not(.v) .copy.qr { left: 1525px; width: 360px; top: 230px; }
+body:not(.v) .copy.qr h2 { font-size: 50px; }
+body:not(.v) .copy.qr li { font-size: 23px; }
+body.v .copy { left: 70px; right: 70px; width: auto; top: 150px; }
+body.v .copy h2 { font-size: 72px; }
+body.v .copy li { font-size: 32px; }
+
+/* ---------- CTA ---------- */
+#cta-card { position: absolute; left: 50%; width: 1380px; margin-left: -690px; top: 150px; padding: 66px 80px 62px; border-radius: 56px; background: var(--blue); color: #fff; text-align: center; box-shadow: 0 60px 120px -40px rgba(1,63,208,.6); }
+body.v #cta-card { width: 960px; margin-left: -480px; top: 360px; padding: 76px 56px; }
+#cta-card h2 { font-size: 92px; line-height: 1.04; letter-spacing: -.04em; font-weight: 800; }
+body.v #cta-card h2 { font-size: 98px; }
+#cta-card h2 em { font-style: normal; color: var(--amber); }
+#cta-feats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
+#cta-feats span { padding: 10px 20px; border-radius: 999px; background: rgba(255,255,255,.12); font-size: 24px; font-weight: 600; color: #e1e9ff; }
+#cta-btn { display: inline-flex; align-items: center; gap: 18px; margin-top: 40px; padding: 28px 60px; border-radius: 999px; background: var(--amber); color: var(--ink); font-size: 44px; font-weight: 700; position: relative; }
+#cta-btn .glow { position: absolute; inset: -14px; border-radius: 999px; border: 6px solid rgba(255,180,35,.55); }
+#brand-foot { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 26px; font-weight: 600; color: var(--muted); }
+#brand-foot img { width: 64px; }
+#brand-foot b { color: var(--blue); font-weight: 800; }
+body:not(.v) #brand-foot { bottom: 70px; }
+body.v #brand-foot { bottom: 260px; font-size: 30px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg-dots" class="full"></div>
+  <div id="bg-glow" class="full"></div>
+
+  <!-- Hook -->
+  <div id="s-hook" class="full">
+    <div id="bg-dark" class="full"></div>
+    <svg id="cloud" class="abs" viewBox="0 0 120 100" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M34 78h52a20 20 0 0 0 2-39.9A28 28 0 0 0 34 33a22.5 22.5 0 0 0 0 45Z" stroke="#c9d6fb" stroke-width="6"/>
+      <path class="slash" d="M18 12 102 92" stroke="#e0384d" stroke-width="9"/>
+    </svg>
+    <div id="errs" class="full"></div>
+    <div id="hook" class="hook">
+      <span class="line"><span>Internet warung putus?</span></span>
+      <span class="line"><span>Kasir <span class="hl">tetap jalan.</span></span></span>
+    </div>
+  </div>
+  <div id="wipe"></div>
+  <div id="wipe2"></div>
+
+  <!-- Title -->
+  <div id="logo" class="abs">
+    <div id="logo-mark"><svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-4Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>
+    <div id="logo-name"><span class="w">Kasir</span> <span class="w"><em>Warkop</em></span></div>
+    <div id="tagline">Sistem kasir offline untuk warkop &amp; kedai kopi</div>
+    <div class="chips" id="logo-chips">
+      <span class="chip amber"><span class="dot"></span>Jalan tanpa internet</span>
+      <span class="chip"><span class="dot"></span>Cukup satu laptop</span>
+      <span class="chip"><span class="dot"></span>Pesan dari meja via QR</span>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div id="s-how" class="full">
+    <div id="how-head" class="abs">Satu laptop. <em>Wi-Fi warung.</em> Beres.</div>
+    <svg id="how-lines" class="abs" width="100%" height="100%"></svg>
+    <div class="node" id="n-phone"><div class="ic"><svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><b>HP pelanggan</b><span>scan QR di meja</span></div>
+    <div class="node" id="n-wifi"><div class="ic"><svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></svg></div><b>Wi-Fi warung</b><span>router biasa</span></div>
+    <div class="node main" id="n-laptop"><div class="ic"><svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg></div><b>Laptop kasir</b><span>semua data tersimpan di sini</span></div>
+    <div class="node off" id="n-net"><div class="ic"><svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .4-8A5.5 5.5 0 0 0 7 9a4.5 4.5 0 0 0 0 9Z"/></svg></div><div class="x">✕</div><b>Internet</b><span>tidak wajib</span></div>
+  </div>
+
+  <!-- Demo -->
+  <div id="laptop"><div class="lid"><div class="screen"><div class="cam" id="cam"><div id="cursor"><svg viewBox="0 0 24 24"><path d="M3 2l16 9-7 2-3 7Z" fill="#0b1b3f" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="ring" id="ring"></div></div></div></div><div class="base"></div></div>
+  <span class="chip amber" id="lens-tag"><span class="dot"></span>Diperbesar</span>
+  <div id="lens"><div class="cam" id="lcam"></div></div>
+  <div id="phone" class="phone"><div class="notch"></div><div class="screen" id="pscreen"><div class="tap" id="ptap"></div></div></div>
+  <div id="struk"><span class="chip blue" id="struk-tag"><span class="dot"></span>Struk 58 mm</span><div class="paper"><img src="shots/struk.png" alt=""></div></div>
+  <div id="notif"><div class="bell"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b1b3f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div><div><b>Pesanan baru · Meja 7</b><span>Rina · 2 item · Rp22.000</span></div></div>
+
+  <div class="copy" id="c-kasir"><span class="eyebrow">Layar kasir</span><h2>Ketuk menu, <em>bon langsung jadi.</em></h2>
+    <ul><li><b>✓</b>Pilih meja atau bawa pulang</li><li><b>✓</b>Catatan "gula sedikit" tercatat</li><li><b>✓</b>Stok terpotong otomatis</li></ul></div>
+  <div class="copy" id="c-bayar"><span class="eyebrow">Pembayaran</span><h2>Tunai, QRIS, <em>atau campur.</em></h2>
+    <ul><li><b>✓</b>Tombol uang pas &amp; pecahan</li><li><b>✓</b>Kembalian dihitung otomatis</li><li><b>✓</b>Struk thermal 58 mm</li></ul></div>
+  <div class="copy qr" id="c-qr"><span class="eyebrow">Pesan dari meja</span><h2>Pelanggan <em>pesan sendiri.</em></h2>
+    <ul><li><b>✓</b>Scan QR di meja</li><li><b>✓</b>Masuk ke kasir + bunyi "ding"</li><li><b>✓</b>Status terlihat di HP</li></ul></div>
+  <div class="copy" id="c-meja"><span class="eyebrow">Meja &amp; bon</span><h2>Pindah, gabung, <em>pisah bon.</em></h2>
+    <ul><li><b>✓</b>Meja terisi terlihat sekilas</li><li><b>✓</b>Tambah pesanan kapan saja</li><li><b>✓</b>Bayar sendiri-sendiri bisa</li></ul></div>
+  <div class="copy" id="c-stok"><span class="eyebrow">Stok</span><h2>Gorengan habis? <em>Menu terkunci.</em></h2>
+    <ul><li><b>✓</b>Stok dihitung per menu</li><li><b>✓</b>Peringatan stok menipis</li></ul></div>
+  <div class="copy" id="c-kas"><span class="eyebrow">Tutup kas</span><h2>Uang laci kurang? <em>Langsung ketahuan.</em></h2>
+    <ul><li><b>✓</b>Modal + tunai masuk dihitung</li><li><b>✓</b>Selisih tercatat per shift</li></ul></div>
+  <div class="copy" id="c-laporan"><span class="eyebrow">Laporan pemilik</span><h2>Menu terlaris &amp; <em>jam ramai.</em></h2>
+    <ul><li><b>✓</b>Harian, bulanan, tanggal bebas</li><li><b>✓</b>Unduh ke Excel</li><li><b>✓</b>Siapa membatalkan bon tercatat</li></ul></div>
+
+  <!-- CTA -->
+  <div id="cta-card">
+    <h2 id="cta-head"></h2>
+    <div id="cta-feats"><span>Bon meja</span><span>QR meja</span><span>Tunai &amp; QRIS</span><span>Stok</span><span>Tutup kas</span><span>Laporan</span></div>
+    <div id="cta-btn"><span class="glow"></span><span id="cta-text"></span> <span>→</span></div>
+  </div>
+  <div id="brand-foot"><img src="assets/linea-mark.png" alt=""><span id="foot-text"></span></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>window.gsap || document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"><\/script>');</script>
+<script src="shots/taps.js"></script>
+<script src="timeline.js"></script>
+<script>
+// ---------- Text you can change, then re-render ----------
+const CONFIG = {
+  headline: 'Internet putus?<br><em>Kasir tetap jalan.</em>',
+  headlineVertical: 'Internet<br>putus?<br><em>Kasir tetap<br>jalan.</em>',
+  cta: 'Minta demo',
+  footer: 'Kasir Warkop · dibuat oleh <b>Linea.js</b>',
+};
+
+const params = new URLSearchParams(location.search);
+const VERTICAL = params.get('f') === 'v';
+if (VERTICAL) document.body.classList.add('v');
+const W = VERTICAL ? 1080 : 1920;
+const H = VERTICAL ? 1920 : 1080;
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); const st = document.getElementById('stage'); st.style.transformOrigin = '0 0'; st.style.transform = params.has('render') ? 'none' : `scale(${s})`; }
+fit(); addEventListener('resize', fit);
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+const T = window.TIMELINE;
+$('#cta-head').innerHTML = VERTICAL ? CONFIG.headlineVertical : CONFIG.headline;
+$('#cta-text').textContent = CONFIG.cta;
+$('#foot-text').innerHTML = CONFIG.footer;
+
+// Screens: one <img> per screenshot, stacked
+const cam = $('#cam');
+const lcam = $('#lcam');
+// The vertical video repeats the laptop screen in a zoomed "lens" under the laptop.
+lcam.appendChild($('#cursor').cloneNode(true)); lcam.appendChild($('#ring').cloneNode(true));
+lcam.querySelectorAll('[id]').forEach((el) => { el.id = 'l' + el.id; });
+const lapImg = {};
+for (const [, shot] of T.laptop) if (shot && !lapImg[shot]) {
+  lapImg[shot] = [cam, lcam].map((c) => { const im = new Image(); im.src = `shots/${shot}.png`; c.insertBefore(im, c.firstChild); return im; });
+}
+const phImg = {};
+for (const [, shot] of T.phone) { const im = new Image(); im.src = `shots/${shot}.png`; $('#pscreen').insertBefore(im, $('#ptap')); phImg[shot] = im; }
+
+// Hook: error chips
+const ERRS = ['Tidak ada sinyal', 'Kuota habis', 'Gagal memuat halaman', 'Server tidak merespons'];
+const errH = [[180, 170], [1420, 210], [240, 820], [1300, 830]];
+const errV = [[70, 200], [560, 280], [90, 1450], [420, 1560]];
+const errs = ERRS.map((t, i) => {
+  const el = document.createElement('div'); el.className = 'err'; el.innerHTML = `<i>!</i>${t}`;
+  const [x, y] = (VERTICAL ? errV : errH)[i];
+  Object.assign(el.style, { left: x + 'px', top: y + 'px', transform: `rotate(${[-4, 3, 2, -3][i]}deg)` });
+  $('#errs').appendChild(el); return el;
+});
+
+// How-it-works layout (centre points of the icons)
+const NODES = VERTICAL
+  ? { 'n-net': [540, 700], 'n-wifi': [540, 1160], 'n-laptop': [280, 1620], 'n-phone': [800, 1620] }
+  : { 'n-phone': [330, 520], 'n-wifi': [960, 520], 'n-laptop': [1590, 520], 'n-net': [960, 860] };
+for (const [id, [x, y]] of Object.entries(NODES)) { const n = $('#' + id); const big = n.classList.contains('main'); Object.assign(n.style, { left: (x - 150) + 'px', top: (y - (big ? 105 : 85)) + 'px' }); }
+const links = [['n-phone', 'n-wifi'], ['n-wifi', 'n-laptop']];
+const NS = 'http://www.w3.org/2000/svg';
+const linkEls = links.map(([a, b]) => {
+  const [x1, y1] = NODES[a]; const [x2, y2] = NODES[b];
+  const l = document.createElementNS(NS, 'line');
+  const pad = 130;
+  const len = Math.hypot(x2 - x1, y2 - y1); const ux = (x2 - x1) / len; const uy = (y2 - y1) / len;
+  Object.entries({ x1: x1 + ux * pad, y1: y1 + uy * pad, x2: x2 - ux * pad, y2: y2 - uy * pad, stroke: '#013fd0', 'stroke-width': 8, 'stroke-linecap': 'round', 'stroke-dasharray': '2 22' }).forEach(([k, v]) => l.setAttribute(k, v));
+  $('#how-lines').appendChild(l); return l;
+});
+const netLine = (() => {
+  const [x1, y1] = NODES['n-wifi']; const [x2, y2] = NODES['n-net'];
+  const l = document.createElementNS(NS, 'line');
+  Object.entries(VERTICAL ? { x1, y1: y1 - 110, x2, y2: y2 + 190 } : { x1, y1: y1 + 190, x2, y2: y2 - 110 }).forEach(([k, v]) => l.setAttribute(k, v));
+  Object.entries({ stroke: '#b8c3d9', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-dasharray': '2 18' }).forEach(([k, v]) => l.setAttribute(k, v));
+  $('#how-lines').appendChild(l); return l;
+})();
+
+// ---------- Timeline ----------
+gsap.defaults({ ease: 'power3.out' });
+const tl = gsap.timeline({ paused: true });
+const set = (sel, v) => gsap.set(sel, v);
+const S = T.scenes;
+
+set('#bg-dots, #bg-glow', { opacity: 0 });
+set('#wipe, #wipe2', { scale: 0 });
+set('#logo, #s-how', { autoAlpha: 0 });
+set('#logo-name .w', { yPercent: 110, opacity: 0 });
+set('#logo-mark', { scale: 0, rotation: -25 });
+set('#tagline, #logo-chips .chip', { y: 30, opacity: 0 });
+set('#hook .line span', { yPercent: 110 });
+set('.err', { scale: 0, opacity: 0 });
+set('#cloud', { scale: .6, opacity: 0 });
+set('#cloud .slash', { strokeDashoffset: 320 });
+set('.copy', { autoAlpha: 0 });
+set('.copy .eyebrow, .copy h2, .copy li', { y: 40, opacity: 0 });
+set('#laptop', { y: VERTICAL ? 1700 : 1100 });
+set('#phone', { y: VERTICAL ? 1900 : 1200, rotation: 6 });
+set('#cursor, #ring, #ptap', { opacity: 0 });
+set('#struk', { autoAlpha: 0 });
+set('#notif', { autoAlpha: 0, y: -30, scale: .8 });
+set('#cta-card', { y: -60, opacity: 0, scale: .92 });
+set('#cta-btn', { scale: .6, opacity: 0 });
+set('#cta-feats span', { y: 20, opacity: 0 });
+set('#brand-foot', { opacity: 0, y: 20 });
+set('#how-head', { y: 40, opacity: 0 });
+set('.node', { y: 60, opacity: 0, scale: .9 });
+set('.node .x', { scale: 0 });
+set(linkEls, { opacity: 0 });
+set(netLine, { opacity: 0 });
+
+// Hook (0–5.5 s)
+tl.to('#cloud', { scale: 1, opacity: 1, duration: .7, ease: 'back.out(1.8)' }, .15)
+  .to('#cloud .slash', { strokeDashoffset: 0, duration: .5, ease: 'power2.inOut' }, .8);
+errs.forEach((e, i) => tl.to(e, { scale: 1, opacity: 1, duration: .35, ease: 'back.out(2.4)' }, .5 + i * .32));
+tl.to('#errs', { x: 8, duration: .07, yoyo: true, repeat: 9, ease: 'sine.inOut' }, 1.9)
+  .to('#hook .line span', { yPercent: 0, duration: .8, stagger: 1.25, ease: 'power4.out' }, .9)
+  .to('.err', { scale: .6, opacity: 0, duration: .35, stagger: .06, ease: 'power2.in' }, 3.0)
+  .to('#cloud', { y: -20, opacity: .35, duration: .6 }, 3.0);
+
+// Title (5.5–10 s)
+tl.to('#wipe', { scale: 24, duration: .7, ease: 'power3.in' }, 4.85)
+  .to('#wipe2', { scale: 24, duration: .7, ease: 'power3.in' }, 5.3)
+  .set('#s-hook', { opacity: 0 }, 5.9)
+  .set('#bg-dots, #bg-glow', { opacity: 1 }, 5.9)
+  .set('#wipe', { opacity: 0 }, 5.9)
+  .to('#wipe2', { opacity: 0, duration: .4 }, 6.0)
+  .set('#logo', { autoAlpha: 1 }, 5.8)
+  .to('#logo-mark', { scale: 1, rotation: 0, duration: .9, ease: 'back.out(1.8)' }, 5.85)
+  .to('#logo-name .w', { yPercent: 0, opacity: 1, duration: .7, stagger: .14, ease: 'back.out(1.5)' }, 6.15)
+  .to('#tagline', { y: 0, opacity: 1, duration: .7 }, 6.7)
+  .to('#logo-chips .chip', { y: 0, opacity: 1, duration: .6, stagger: .14, ease: 'back.out(1.6)' }, 7.0)
+  .to('#logo', { y: -40, opacity: 0, duration: .6, ease: 'power2.in' }, 9.5);
+
+// How it works (10–14 s)
+tl.set('#s-how', { autoAlpha: 1 }, 9.9)
+  .to('#how-head', { y: 0, opacity: 1, duration: .7 }, 10.0)
+  .to('#n-laptop', { y: 0, opacity: 1, scale: 1, duration: .7, ease: 'back.out(1.6)' }, 10.3)
+  .to('#n-wifi', { y: 0, opacity: 1, scale: 1, duration: .7, ease: 'back.out(1.6)' }, 10.6)
+  .to(linkEls[1], { opacity: 1, duration: .4 }, 10.8)
+  .to('#n-phone', { y: 0, opacity: 1, scale: 1, duration: .7, ease: 'back.out(1.6)' }, 10.9)
+  .to(linkEls[0], { opacity: 1, duration: .4 }, 11.1)
+  .fromTo(linkEls, { strokeDashoffset: 0 }, { strokeDashoffset: -96, duration: 2.6, ease: 'none' }, 11.1)
+  .to('#n-net', { y: 0, opacity: 1, scale: 1, duration: .7, ease: 'back.out(1.6)' }, 11.6)
+  .to(netLine, { opacity: 1, duration: .3 }, 11.8)
+  .to('#n-net .x', { scale: 1, duration: .45, ease: 'back.out(3)' }, 12.2)
+  .to('#s-how', { autoAlpha: 0, y: -40, duration: .5, ease: 'power2.in' }, 13.5);
+
+// Captions
+const COPY = [['#c-kasir', S.kasir + .4, S.bayar - .35], ['#c-bayar', S.bayar + .1, S.qr - .4], ['#c-qr', S.qr + .4, S.meja - .45], ['#c-meja', S.meja + .3, S.stok - .35], ['#c-stok', S.stok + .2, S.kas - .35], ['#c-kas', S.kas + .2, S.laporan - .35], ['#c-laporan', S.laporan + .2, S.cta - .45]];
+COPY.forEach(([sel, a, b]) => {
+  tl.set(sel, { autoAlpha: 1 }, a - .01)
+    .to(`${sel} .eyebrow`, { y: 0, opacity: 1, duration: .55 }, a)
+    .to(`${sel} h2`, { y: 0, opacity: 1, duration: .75 }, a + .1)
+    .to(`${sel} li`, { y: 0, opacity: 1, duration: .55, stagger: .16 }, a + .4)
+    .to(`${sel} .eyebrow, ${sel} h2, ${sel} li`, { y: -30, opacity: 0, duration: .4, stagger: .03, ease: 'power2.in' }, b - .4)
+    .set(sel, { autoAlpha: 0 }, b + .05);
+});
+
+// Laptop in/out and the QR-scene layout (laptop shrinks, phone joins)
+const LQR = VERTICAL ? { x: -60, y: 20, scale: .52 } : { x: -40, y: 90, scale: .74 };
+tl.to('#laptop', { y: 0, duration: 1.0, ease: 'power3.out' }, S.kasir)
+  .to('#laptop', { ...LQR, duration: .9, ease: 'power3.inOut' }, S.qr)
+  .to('#phone', { y: 0, rotation: 0, duration: 1.0, ease: 'back.out(1.2)' }, S.qr + .4)
+  .to('#phone', { y: VERTICAL ? 1900 : 1200, rotation: 8, duration: .8, ease: 'power3.in' }, S.meja - .9)
+  .to('#laptop', { x: 0, y: 0, scale: 1, duration: .9, ease: 'power3.inOut' }, S.meja - .4)
+  .to('#laptop', { y: VERTICAL ? 1700 : 1100, duration: .9, ease: 'power3.in' }, S.cta - .6);
+
+// Screens and the cursor
+const cur = { x: 60, y: 60 };
+const cview = { s: 1, cx: 50, cy: 50 };
+let shown = null;
+let z = 1;
+const showShot = (shot, at, fade) => {
+  const im = lapImg[shot];
+  tl.set(im, { zIndex: ++z }, at);
+  if (fade) tl.fromTo(im, { opacity: 0 }, { opacity: 1, duration: .35, ease: 'power1.inOut', immediateRender: false }, at);
+  else tl.set(im, { opacity: 1 }, at);
+  if (shown && shown !== im) tl.set(shown, { opacity: 0 }, at + (fade ? .36 : .01));
+  shown = im;
+};
+tl.set('#cursor, #lcursor', { opacity: 1 }, S.kasir + 1.1);
+T.laptop.forEach(([t, shot, tap], i) => {
+  if (tap) {
+    const p = window.TAPS[tap];
+    const prev = T.laptop[i - 1];
+    const travel = Math.min(.55, prev ? t - prev[0] - .12 : .55);
+    tl.to(cur, { x: p.left, y: p.top, duration: travel, ease: 'power2.inOut' }, t - travel)
+      .to('#cursor, #lcursor', { scale: .82, duration: .07, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t - .02)
+      .fromTo('#ring, #lring', { left: p.left + '%', top: p.top + '%', scale: .3, opacity: 1 }, { scale: 1.5, opacity: 0, duration: .45, ease: 'power2.out', immediateRender: false }, t);
+  }
+  if (shot) showShot(shot, tap ? t + .1 : t, !tap);
+});
+// Hide the cursor while the phone has the stage, and at the end
+tl.to('#cursor, #lcursor', { opacity: 0, duration: .2 }, 23.6).to('#cursor, #lcursor', { opacity: 1, duration: .2 }, 32.1)
+  .to('#cursor, #lcursor', { opacity: 0, duration: .2 }, 33.2).to('#cursor, #lcursor', { opacity: 1, duration: .2 }, 38.5)
+  .to('#cursor, #lcursor', { opacity: 0, duration: .2 }, 51.6);
+tl.set(cur, { x: 34, y: 66 }, 38.4);
+
+// Camera: zoom into the part of the screen that matters
+const CAM = VERTICAL ? [
+  [14.2, 1.15, 50, 40], [15.4, 1.45, 76, 36], [16.2, 1.5, 22, 45], [18.9, 1.5, 62, 50], [20.9, 1.3, 55, 55], [23.0, 1.35, 60, 52], [24.6, 1.15, 50, 50],
+  [37.2, 1.3, 40, 40], [38.5, 1.5, 80, 32], [39.5, 1.45, 52, 45], [41.8, 1.2, 50, 50],
+  [43.2, 1.8, 26, 30], [45.8, 1.3, 40, 40],
+  [47.1, 1.6, 70, 25], [48.6, 1.6, 50, 42], [50.9, 1.3, 50, 50],
+  [52.1, 1.5, 40, 55], [53.8, 1.4, 40, 50], [55.4, 1.2, 50, 50],
+] : [
+  [16.0, 1.18, 32, 42], [18.9, 1.25, 62, 50], [20.9, 1.12, 55, 55], [24.6, 1, 50, 50],
+  [31.0, 1.35, 26, 55], [33.6, 1, 50, 50],
+  [39.5, 1.2, 52, 45], [41.8, 1, 50, 50],
+  [43.4, 1.3, 30, 32], [45.8, 1, 50, 50],
+  [47.2, 1.2, 70, 28], [48.6, 1.35, 50, 42], [50.9, 1, 50, 50],
+  [52.3, 1.15, 40, 40], [55.4, 1, 50, 50],
+];
+// In the vertical QR scene the laptop is small, so zoom the laptop itself there.
+const QRCAM = [[31.0, 1.7, 24, 55], [33.6, 1, 50, 50]];
+const qview = { s: 1, cx: 50, cy: 50 };
+if (VERTICAL) cview.s = 1.15;
+CAM.forEach(([t, s, cx, cy]) => tl.to(cview, { s, cx, cy, duration: .9, ease: 'power2.inOut' }, t));
+if (VERTICAL) QRCAM.forEach(([t, s, cx, cy]) => tl.to(qview, { s, cx, cy, duration: .9, ease: 'power2.inOut' }, t));
+/** Zoom `el` (content w×h px) inside a window vw×vh px so that point (cx, cy)% sits in the middle. */
+const zoom = (el, v, vw, vh, w, h) => {
+  const s = v.s;
+  const fx = Math.min(1, vw / (w * s)) / 2; const fy = Math.min(1, vh / (h * s)) / 2;
+  const cx = Math.min(1 - fx, Math.max(fx, v.cx / 100)); const cy = Math.min(1 - fy, Math.max(fy, v.cy / 100));
+  el.style.transform = `translate(${vw / 2 - s * cx * w}px, ${vh / 2 - s * cy * h}px) scale(${s})`;
+};
+const applyView = () => {
+  const sw = cam.parentNode.clientWidth; const sh = cam.parentNode.clientHeight;
+  zoom(cam, VERTICAL ? qview : cview, sw, sh, sw, sh);
+  if (VERTICAL) { const lw = 948; zoom(lcam, cview, lw, 588, lw, lw * 1152 / 2049); }
+  for (const id of ['cursor', 'lcursor']) { const c = document.getElementById(id); c.style.left = cur.x + '%'; c.style.top = cur.y + '%'; }
+};
+
+// Lens (vertical only): visible while the laptop is centre stage
+set('#lens, #lens-tag', { autoAlpha: 0, y: 80 });
+[[S.kasir + .3, S.qr], [S.meja - .2, S.cta - .6]].forEach(([a, b]) => {
+  tl.to('#lens, #lens-tag', { autoAlpha: 1, y: 0, duration: .7, ease: 'back.out(1.3)' }, a)
+    .to('#lens, #lens-tag', { autoAlpha: 0, y: 80, duration: .5, ease: 'power2.in' }, b);
+});
+
+// Receipt prints out next to the laptop
+tl.set('#struk', { autoAlpha: 1 }, T.printer)
+  .fromTo('#struk .paper', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power1.inOut' }, T.printer)
+  .fromTo('#struk', { y: -40, rotation: 0 }, { y: 0, rotation: 3, duration: 1.1, ease: 'power1.inOut' }, T.printer)
+  .fromTo('#struk-tag', { scale: 0 }, { scale: 1, duration: .5, ease: 'back.out(2)' }, T.printer + .9)
+  .to('#struk', { y: 120, autoAlpha: 0, duration: .5, ease: 'power2.in' }, S.qr - .3);
+
+// Phone
+let pshown = null;
+T.phone.forEach(([t, shot, tap]) => {
+  if (tap) {
+    const p = window.TAPS[tap];
+    tl.fromTo('#ptap', { left: p.left + '%', top: p.top + '%', scale: .3, opacity: 1 }, { scale: 1.3, opacity: 0, duration: .5, ease: 'power2.out', immediateRender: false }, t);
+  }
+  const im = phImg[shot]; const at = tap ? t + .1 : t;
+  tl.set(im, { zIndex: ++z }, at);
+  if (tap) tl.set(im, { opacity: 1 }, at); else tl.fromTo(im, { opacity: 0 }, { opacity: 1, duration: .35, immediateRender: false }, at);
+  if (pshown) tl.set(pshown, { opacity: 0 }, at + (tap ? .01 : .36));
+  pshown = im;
+});
+tl.to('#phone', { scale: 1.03, duration: .18, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 33.5);
+
+// "Ding" notification
+tl.to('#notif', { autoAlpha: 1, y: 0, scale: 1, duration: .5, ease: 'back.out(2)' }, T.ding[0])
+  .to('#notif', { rotation: 3, duration: .08, yoyo: true, repeat: 5, ease: 'sine.inOut' }, T.ding[0] + .45)
+  .to('#notif', { autoAlpha: 0, y: -20, duration: .35, ease: 'power2.in' }, 32.6);
+
+// CTA (56.4–62 s)
+tl.to('#cta-card', { y: 0, opacity: 1, scale: 1, duration: .9, ease: 'back.out(1.4)' }, S.cta + .2)
+  .to('#cta-feats span', { y: 0, opacity: 1, duration: .45, stagger: .08, ease: 'back.out(2)' }, S.cta + .8)
+  .to('#cta-btn', { scale: 1, opacity: 1, duration: .7, ease: 'back.out(2)' }, S.cta + 1.4)
+  .to('#brand-foot', { opacity: 1, y: 0, duration: .6 }, S.cta + 1.9)
+  .fromTo('#cta-btn .glow', { scale: 1, opacity: .9 }, { scale: 1.12, opacity: 0, duration: 1.1, repeat: 2, ease: 'power1.out' }, S.cta + 2.1)
+  .to('#cta-btn', { scale: 1.04, duration: .55, yoyo: true, repeat: 3, ease: 'sine.inOut' }, S.cta + 2.1);
+tl.to({}, { duration: .01 }, T.duration);
+tl.eventCallback('onUpdate', applyView);
+
+window.DURATION = T.duration;
+window.seek = (t) => { tl.seek(t, false); applyView(); };
+window.ready = Promise.all([document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))]);
+if (!params.has('render')) { tl.play(0); tl.eventCallback('onComplete', () => tl.play(0)); }
+</script>
+</body>
+</html>
