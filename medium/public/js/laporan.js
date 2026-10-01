@@ -17,9 +17,9 @@
   let tab = 'ringkasan';
 
   const fmtDay = (d) => new Date(d + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-  const bars = (rows, label, value, fmt = rupiah) => {
+  const bars = (rows, label, value, fmt = rupiah, cls = '') => {
     const max = Math.max(1, ...rows.map(value));
-    return `<div class="hbars">${rows.map((r) => `<div class="hbar"><span class="hbar-l">${label(r)}</span><span class="hbar-t"><i style="width:${(value(r) / max) * 100}%"></i></span><span class="hbar-v num">${fmt(value(r))}</span></div>`).join('')}</div>`;
+    return `<div class="hbars ${cls}">${rows.map((r) => `<div class="hbar"><span class="hbar-l">${label(r)}</span><span class="hbar-t"><i style="width:${(value(r) / max) * 100}%"></i></span><span class="hbar-v num">${fmt(value(r))}</span></div>`).join('')}</div>`;
   };
 
   main.innerHTML = `
@@ -66,7 +66,7 @@
           <div class="card"><div class="card-head"><h2>Menu terlaris</h2><button class="link" data-goto="menu">Lihat semua</button></div>
             ${r.items.length ? bars(r.items.slice(0, 5), (x) => esc(x.name), (x) => x.qty, (n) => n + '×') : '<div class="empty">Belum ada penjualan.</div>'}</div>
         </div>
-        ${r.days.length > 1 ? `<div class="card"><div class="card-head"><h2>Per hari</h2></div>${bars(r.days, (d) => fmtDay(d.day), (d) => d.total)}</div>` : ''}
+        ${r.days.length > 1 ? `<div class="card"><div class="card-head"><h2>Per hari</h2></div>${bars(r.days, (d) => fmtDay(d.day), (d) => d.total, rupiah, 'compact')}</div>` : ''}
         <div class="card"><div class="card-head"><h2>Jam ramai</h2><span class="muted small">jumlah bon dibayar per jam</span></div>
           ${hours.length ? `<div class="vbars">${hours.map((h) => { const max = Math.max(...hours.map((x) => x.n)); return `<div class="vbar" title="${h.n} bon · ${rupiah(h.total)}"><i style="height:${(h.n / max) * 100}%"></i><span>${String(h.hour).padStart(2, '0')}</span><b>${h.n || ''}</b></div>`; }).join('')}</div>` : '<div class="empty">Belum ada penjualan.</div>'}
         </div>

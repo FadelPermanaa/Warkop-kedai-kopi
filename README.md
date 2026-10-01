@@ -6,7 +6,7 @@ paling sederhana sampai platform lengkap. Semua versi ada di satu repository ini
 | Versi | Folder | Jenis | Dipakai oleh | Status |
 |---|---|---|---|---|
 | **Basic** — Menu Digital & Pesan via WhatsApp | [`basic/`](basic/README.md) | Website statis | Pelanggan | ✅ Selesai |
-| **Medium** — Kasir Warkop (POS) | `medium/` | Web app + database | Kasir & pemilik | 🔜 Rencana |
+| **Medium** — Kasir Warkop (POS) | [`medium/`](medium/README.md) | Web app + database | Kasir, pemilik & pelanggan | ✅ Selesai |
 | **Complex** — Warkop Hub (multi-cabang) | `complex/` | Aplikasi + platform | Pelanggan, staf, kantor pusat | 🔜 Rencana |
 
 ---
@@ -20,8 +20,13 @@ WhatsApp kasir. Tanpa server, tanpa install, hosting gratis.
 
 ## Medium — Kasir Warkop (POS)
 
-Web app untuk kasir dan pemilik: login per peran, catat transaksi, bon terbuka per meja,
-tunai / QRIS, laporan harian, stok sederhana dan halaman admin menu.
+Web app untuk kasir dan pemilik: login per peran, bon terbuka per meja (pindah, gabung,
+pisah), bayar tunai / QRIS / campur, struk 58 mm, pelanggan pesan sendiri lewat QR di meja,
+stok per menu, buka/tutup kas, laporan harian & bulanan dengan unduhan Excel.
+
+Windows: klik dua kali `medium/JALANKAN.bat`.
+
+📄 Dokumentasi lengkap: **[medium/README.md](medium/README.md)**
 
 ## Complex — Warkop Hub
 

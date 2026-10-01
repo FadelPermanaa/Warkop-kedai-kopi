@@ -4,7 +4,7 @@
   App.watermark();
   const { user, shop } = await api('/api/me');
   const next = new URLSearchParams(location.search).get('next');
-  const target = next && next.startsWith('/') && !next.startsWith('//') ? next : '/kasir';
+  const target = next && /^\/(?![\/\\])/.test(next) ? next : '/kasir';
   if (user) { location.href = target; return; }
   $('[data-shop]').textContent = shop.name;
   $('#form').addEventListener('submit', async (e) => {

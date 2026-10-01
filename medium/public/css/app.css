@@ -312,3 +312,4 @@ td.pos { color: var(--ok); font-weight: 600; }
   .card.filters input[type=date] { flex: 1; min-width: 0; }
   .page-head .actions .btn { flex: 1; }
 }
+.hbars.compact { gap: 5px; } .hbars.compact .hbar { grid-template-columns: 56px 1fr auto; font-size: 13px; }
