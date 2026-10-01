@@ -6,6 +6,8 @@ const auth = require('../services/auth');
 const settings = require('../services/settings');
 const tables = require('../services/tables');
 const audit = require('../services/audit');
+const report = require('../services/report');
+const shifts = require('../services/shifts');
 const { UserError, text } = require('../services/common');
 const { requireOwner, id } = require('./util');
 
@@ -60,6 +62,27 @@ router.get('/table-qr', async (req, res) => {
     out.push({ id: t.id, name: t.name, url, svg: await QRCode.toString(url, { type: 'svg', margin: 1, errorCorrectionLevel: 'M' }) });
   }
   res.json({ tables: out, shop: settings.get('shop_name') });
+});
+
+// ---- reports
+router.get('/report', (req, res) => {
+  const r = report.summary(req.query.from, req.query.to);
+  res.json({ ...r, shifts: shifts.list({ from: r.from, to: r.to }) });
+});
+router.get('/report.csv', (req, res) => {
+  const [from, to] = report.range(req.query.from, req.query.to);
+  let body;
+  if (req.query.kind === 'menu') {
+    body = report.csv(report.summary(from, to).items, [['name', 'Menu'], ['category', 'Kategori'], ['qty', 'Terjual'], ['total', 'Pendapatan']]);
+  } else {
+    const STATUS = { paid: 'Lunas', void: 'Dibatalkan' };
+    const rows = report.transactions(from, to).map((o) => ({ ...o, status: STATUS[o.status], type: o.type === 'take_away' ? 'Bawa pulang' : 'Makan di sini', when: o.paid_at || o.voided_at }));
+    body = report.csv(rows, [['code', 'No. bon'], ['when', 'Waktu'], ['status', 'Status'], ['type', 'Jenis'], ['table_name', 'Meja'], ['customer_name', 'Nama'],
+      ['items', 'Pesanan'], ['subtotal', 'Subtotal'], ['discount', 'Diskon'], ['total', 'Total'], ['payments', 'Pembayaran'], ['cashier', 'Kasir'], ['void_reason', 'Alasan batal']]);
+  }
+  const name = `${req.query.kind === 'menu' ? 'penjualan-menu' : 'transaksi'}_${from}${from === to ? '' : '_' + to}.csv`;
+  res.set({ 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="${name}"` });
+  res.send(body);
 });
 
 router.get('/audit', (req, res) => res.json({ entries: audit.list({ limit: 300 }) }));

@@ -19,6 +19,7 @@
         <input type="search" placeholder="Cari menu…" data-search aria-label="Cari menu">
         <div class="cats" data-cats></div>
       </div>
+      <a class="kas-note" href="/riwayat#kas" data-kasnote hidden>Kas belum dibuka. Buka kas supaya setoran bisa dicocokkan saat tutup →</a>
       <div class="tiles" data-tiles></div>
     </section>
     <aside class="pos-bill" data-bill></aside>
@@ -331,6 +332,7 @@
     App.shopQrisName = shop.qris_name;
     if (shop.qris) App.shopQris = (await api('/api/shop/qris')).image;
     await Promise.all([loadMenu(), loadTables()]);
+    api('/api/shift').then(({ shift }) => { $('[data-kasnote]').hidden = !!shift; }).catch(() => {});
     if (params.get('order')) await loadOrder(Number(params.get('order')));
     renderBill();
     $('[data-bill]').prepend(closeBtn);
