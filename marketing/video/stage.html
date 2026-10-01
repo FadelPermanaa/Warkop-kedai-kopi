@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Menu Digital Warkop — promo</title>
+<link rel="stylesheet" href="fonts/poppins.css">
+<style>
+:root {
+  --blue: #013fd0; --blue-700: #0131a3; --blue-50: #e8eefc; --amber: #ffb423; --mist: #f0fafb;
+  --ink: #0b1b3f; --muted: #56627e; --line: #dfe7f1; --wa: #25D366;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+body { font-family: 'Poppins', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--mist); }
+body.v #stage { width: 1080px; height: 1920px; }
+.abs { position: absolute; }
+.full { position: absolute; inset: 0; }
+
+#bg-dots { background-image: radial-gradient(rgba(1,63,208,.12) 2px, transparent 2.5px); background-size: 44px 44px; }
+#bg-glow { background: radial-gradient(55% 50% at 80% 20%, rgba(232,238,252,1), transparent 70%), radial-gradient(45% 45% at 8% 92%, rgba(255,180,35,.22), transparent 70%); }
+#bg-dark { background: radial-gradient(80% 70% at 50% 40%, #13275a, #050c20 75%); }
+
+/* ---------- Scene 1 ---------- */
+.shout { position: absolute; padding: 18px 26px; border-radius: 28px; background: #fff; color: var(--ink); font-size: 27px; font-weight: 600; box-shadow: 0 22px 44px -14px rgba(0,0,0,.6); white-space: nowrap; }
+.shout::after { content: ''; position: absolute; left: 34px; bottom: -14px; border: 14px solid transparent; border-top-color: #fff; border-bottom: 0; }
+.paper { position: absolute; width: 230px; height: 300px; background: #f3ece0; border-radius: 6px; box-shadow: 0 20px 40px -10px rgba(0,0,0,.6); padding: 24px 22px; font-family: 'Poppins'; }
+.paper h4 { font-size: 26px; font-weight: 800; color: #6b4f2a; letter-spacing: .1em; margin-bottom: 12px; }
+.paper p { display: flex; justify-content: space-between; font-size: 15px; color: #6b5a44; border-bottom: 2px dashed rgba(107,79,42,.25); padding: 6px 0; }
+.paper p s { color: #b0452f; }
+.paper .stain { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 10px solid rgba(120,80,40,.22); right: 18px; bottom: 26px; }
+.hook { position: absolute; left: 0; right: 0; text-align: center; color: #fff; font-weight: 800; letter-spacing: -.03em; line-height: 1.06; }
+.hook .line { display: block; overflow: hidden; padding-bottom: .08em; }
+.hook .line span { display: inline-block; white-space: nowrap; }
+#hook { top: 350px; font-size: 98px; }
+body.v #hook { top: 720px; font-size: 64px; }
+.hl { color: var(--ink); background: var(--amber); border-radius: 18px; padding: 0 .18em; }
+#wipe { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: var(--amber); }
+#wipe2 { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: var(--mist); }
+
+/* ---------- Scene 2 ---------- */
+#logo { left: 0; right: 0; top: 260px; text-align: center; }
+body.v #logo { top: 600px; }
+#logo-mark { display: inline-grid; place-items: center; width: 170px; height: 170px; border-radius: 48px; background: var(--blue); color: #fff; box-shadow: 0 30px 60px -20px rgba(1,63,208,.6); }
+#logo-name { font-size: 116px; font-weight: 800; letter-spacing: -.04em; margin-top: 26px; line-height: 1.02; }
+#logo-name em { font-style: normal; color: var(--blue); }
+#logo-name .w { display: inline-block; }
+body.v #logo-name { font-size: 104px; }
+#tagline { font-size: 36px; font-weight: 500; color: var(--muted); margin-top: 22px; }
+body.v #tagline { font-size: 33px; padding: 0 60px; }
+.chips { display: flex; gap: 14px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+body.v .chips { padding: 0 60px; }
+.chip { display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 999px; font-size: 26px; font-weight: 600; background: #fff; border: 2px solid var(--line); white-space: nowrap; }
+.chip .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--blue); }
+.chip.amber { background: var(--amber); border-color: var(--amber); }
+.chip.amber .dot { background: var(--ink); }
+.chip.blue { background: var(--blue); border-color: var(--blue); color: #fff; }
+.chip.blue .dot { background: var(--amber); }
+
+/* ---------- Copy ---------- */
+.copy { position: absolute; width: 620px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
+.eyebrow::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--amber); }
+.copy h2 { font-size: 62px; line-height: 1.06; letter-spacing: -.035em; font-weight: 800; margin: 20px 0 30px; }
+.copy h2 em { font-style: normal; color: var(--blue); white-space: nowrap; }
+.copy ul { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+.copy li { display: flex; align-items: center; gap: 16px; font-size: 28px; font-weight: 500; color: var(--muted); }
+.copy li b { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 22px; }
+body:not(.v) .copy { left: 110px; top: 220px; }
+body.v .copy { left: 70px; right: 70px; width: auto; top: 200px; }
+body.v .copy h2 { font-size: 78px; }
+body.v .copy li { font-size: 32px; }
+
+/* ---------- Devices ---------- */
+.phone { position: absolute; width: 380px; padding: 14px; border-radius: 60px; background: #0d1530; box-shadow: 0 50px 90px -30px rgba(11,27,63,.55); }
+.phone .screen { position: relative; width: 100%; aspect-ratio: 352 / 808; border-radius: 46px; overflow: hidden; background: #fff; }
+.phone .notch { position: absolute; left: 50%; top: 24px; width: 104px; height: 30px; margin-left: -52px; border-radius: 20px; background: #0d1530; z-index: 3; }
+.phone .sbar { position: absolute; left: 0; right: 0; top: 0; height: 46px; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 6px 36px 0 40px; font-size: 16px; font-weight: 600; background: #fff; color: var(--ink); }
+.phone .content { position: absolute; left: 0; right: 0; top: 46px; }
+.phone .content > img { position: absolute; left: 0; top: 0; width: 100%; }
+.phone .content > img:first-child { position: relative; display: block; }
+body:not(.v) #phoneA { left: 860px; top: 110px; }
+body:not(.v) #phoneB { left: 1340px; top: 150px; }
+body.v #phoneA { left: 90px; top: 760px; }
+body.v #phoneB { left: 610px; top: 820px; }
+body:not(.v) #phoneC { left: 860px; top: 110px; }
+body.v #phoneC { left: 70px; top: 740px; }
+body:not(.v) #phoneD { left: 1490px; top: 130px; }
+body.v #phoneD { left: 640px; top: 1000px; }
+
+.ov { position: absolute; }
+.tap { width: 20%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,180,35,.5); border: 4px solid var(--amber); transform: translate(-50%, -50%); }
+
+/* QR table tent */
+#tent { position: absolute; width: 300px; padding: 24px 24px 20px; border-radius: 22px; background: #fff; box-shadow: 0 40px 70px -24px rgba(11,27,63,.45); text-align: center; }
+#tent .t { font-size: 18px; font-weight: 700; letter-spacing: .12em; color: var(--blue); }
+#tent .qr { width: 200px; height: 200px; margin: 12px auto; display: grid; grid-template-columns: repeat(21, 1fr); }
+#tent .qr i { display: block; }
+#tent .m { font-size: 34px; font-weight: 800; }
+#tent .beam { position: absolute; left: 40px; right: 40px; height: 6px; top: 70px; border-radius: 3px; background: var(--amber); box-shadow: 0 0 20px var(--amber); }
+body:not(.v) #tent { left: 150px; top: 560px; transform: rotate(-4deg); }
+body.v #tent { display: none; }
+
+/* WhatsApp message (real text from the site) */
+#wa { position: absolute; width: 560px; padding: 22px 26px 16px; border-radius: 26px 26px 8px 26px; background: #DCF8C6; color: #1d2b1f; font-size: 22px; line-height: 1.36; box-shadow: 0 30px 60px -18px rgba(11,27,63,.5); }
+#wa .to { font-size: 17px; font-weight: 700; color: #1F8F4E; margin-bottom: 8px; display: flex; gap: 8px; align-items: center; }
+#wa .t { white-space: pre-line; }
+#wa .meta { text-align: right; font-size: 16px; color: #5c7a62; margin-top: 4px; }
+#wa .meta b { color: #34B7F1; letter-spacing: -3px; }
+body:not(.v) #wa { left: 1300px; top: 170px; }
+body.v #wa { left: 460px; top: 1040px; width: 590px; }
+
+/* Code editor for the owner scene */
+#editor { position: absolute; width: 860px; border-radius: 20px; background: #0f172a; box-shadow: 0 50px 90px -30px rgba(11,27,63,.6); overflow: hidden; font-family: 'DejaVu Sans Mono', ui-monospace, monospace; font-size: 23px; color: #cbd5e1; }
+#editor .bar { height: 54px; background: #1e293b; display: flex; align-items: center; gap: 10px; padding: 0 22px; font-family: 'Poppins'; font-size: 18px; color: #94a3b8; }
+#editor .bar i { width: 14px; height: 14px; border-radius: 50%; background: #ef4444; display: inline-block; }
+#editor .bar i:nth-child(2) { background: #f59e0b; } #editor .bar i:nth-child(3) { background: #22c55e; }
+#editor .bar span { margin-left: 14px; }
+#editor pre { padding: 26px 30px 30px; line-height: 1.75; white-space: pre; font: inherit; }
+#editor .k { color: #93c5fd; } #editor .s { color: #fcd34d; } #editor .n { color: #f9a8d4; } #editor .c { color: #64748b; }
+#editor .hlrow { background: rgba(255,180,35,.14); display: inline-block; width: 100%; margin: 0 -30px; padding: 0 30px; }
+#editor .caret { display: inline-block; width: 3px; height: 1.1em; background: var(--amber); vertical-align: -3px; }
+body:not(.v) #editor { left: 700px; top: 240px; width: 780px; font-size: 19px; }
+body.v #editor { left: 40px; top: 700px; width: 1000px; font-size: 20px; }
+.float { position: absolute; }
+body:not(.v) #chips5 { left: 700px; top: 700px; display: flex; gap: 14px; }
+body.v #chips5 { left: 40px; width: 560px; top: 1180px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+
+/* ---------- Scene 6 ---------- */
+#cta-card { position: absolute; left: 50%; width: 1360px; margin-left: -680px; top: 84px; padding: 60px 80px 62px; border-radius: 56px; background: var(--blue); color: #fff; text-align: center; box-shadow: 0 60px 120px -40px rgba(1,63,208,.6); }
+body.v #cta-card { width: 960px; margin-left: -480px; top: 250px; padding: 70px 56px; }
+#cta-card h2 { font-size: 86px; line-height: 1.04; letter-spacing: -.04em; font-weight: 800; }
+body.v #cta-card h2 { font-size: 96px; }
+#cta-card h2 em { font-style: normal; color: var(--amber); }
+#cta-btn { display: inline-flex; align-items: center; gap: 18px; margin-top: 40px; padding: 30px 60px; border-radius: 999px; background: var(--amber); color: var(--ink); font-size: 46px; font-weight: 700; position: relative; }
+#cta-btn .glow { position: absolute; inset: -14px; border-radius: 999px; border: 6px solid rgba(255,180,35,.55); }
+#cta-sub { font-size: 26px; color: #c7d4f7; margin-top: 26px; font-weight: 500; }
+#cup { position: absolute; width: 300px; }
+body:not(.v) #cup { left: 810px; top: 640px; }
+body.v #cup { left: 390px; top: 1230px; }
+.steam { position: absolute; width: 18px; height: 80px; border-radius: 9px; background: rgba(1,63,208,.28); }
+#brand-foot { position: absolute; left: 0; right: 0; text-align: center; font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; }
+body:not(.v) #brand-foot { bottom: 36px; }
+body.v #brand-foot { bottom: 110px; font-size: 28px; }
+.mk { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--blue); color: #fff; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg-dots" class="full"></div>
+  <div id="bg-glow" class="full"></div>
+
+  <!-- Scene 1 -->
+  <div id="s1" class="full">
+    <div id="bg-dark" class="full"></div>
+    <div id="papers" class="full"></div>
+    <div id="shouts" class="full"></div>
+    <div id="hook" class="hook">
+      <span class="line"><span>Teriak pesan dari pojok.</span></span>
+      <span class="line"><span>Menu kertas lusuh.</span></span>
+      <span class="line"><span class="hl">Pesanan salah catat?</span></span>
+    </div>
+  </div>
+  <div id="wipe"></div>
+  <div id="wipe2"></div>
+
+  <!-- Scene 2 -->
+  <div id="logo" class="abs">
+    <div id="logo-mark"><svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-4Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg></div>
+    <div id="logo-name"></div>
+    <div id="tagline"></div>
+    <div class="chips" id="logo-chips">
+      <span class="chip amber"><span class="dot"></span>Tanpa install aplikasi</span>
+      <span class="chip"><span class="dot"></span>Hosting gratis</span>
+      <span class="chip"><span class="dot"></span>Buka/tutup otomatis</span>
+    </div>
+  </div>
+
+  <!-- Scene 3: scan & pick -->
+  <div id="copy3" class="copy">
+    <span class="eyebrow">Scan &amp; pilih</span>
+    <h2>Pesan <em>tanpa antre.</em></h2>
+    <ul>
+      <li><b>✓</b>Scan QR, nomor meja terisi</li>
+      <li><b>✓</b>Menu lengkap dengan harga</li>
+      <li><b>✓</b>Tambah ke keranjang sekali tap</li>
+    </ul>
+  </div>
+  <div id="tent"><div class="t">SCAN UNTUK PESAN</div><div class="qr" id="qr"></div><div class="m">MEJA 4</div><div class="beam" id="beam"></div></div>
+  <div id="phoneA" class="phone"><div class="notch"></div><div class="screen">
+    <div class="sbar">SBAR</div>
+    <div class="content"><img src="shots/p-home.png" alt=""></div>
+  </div></div>
+  <div id="phoneB" class="phone"><div class="notch"></div><div class="screen">
+    <div class="sbar">SBAR</div>
+    <div class="content">
+      <img src="shots/p-menu-0.png" alt="">
+      <img id="m1" src="shots/p-menu-1.png" alt="">
+      <img id="m2" src="shots/p-menu-2.png" alt="">
+      <img id="m3" src="shots/p-menu-3.png" alt="">
+      <img id="m4" src="shots/p-menu-4.png" alt="">
+      <div class="ov tap" id="tapAdd1"></div>
+      <div class="ov tap" id="tapAdd2"></div>
+      <div class="ov tap" id="tapAdd3"></div>
+    </div>
+  </div></div>
+
+  <!-- Scene 4: send via WhatsApp -->
+  <div id="copy4" class="copy">
+    <span class="eyebrow">Kirim lewat WhatsApp</span>
+    <h2>Pesanan rapi, <em>langsung ke kasir.</em></h2>
+    <ul>
+      <li><b>✓</b>Makan di tempat / bawa pulang</li>
+      <li><b>✓</b>Catatan "gula sedikit" tak terlupa</li>
+      <li><b>✓</b>Kasir terima di WhatsApp</li>
+    </ul>
+  </div>
+  <div id="phoneC" class="phone"><div class="notch"></div><div class="screen">
+    <div class="sbar">SBAR</div>
+    <div class="content">
+      <img src="shots/p-cart.png" alt="">
+      <img id="cart-2" src="shots/p-cart-filled.png" alt="">
+      <div class="ov tap" id="tapSend"></div>
+    </div>
+  </div></div>
+  <div id="wa">
+    <div class="to"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F8F4E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z"/></svg><span id="wa-to"></span></div>
+    <div class="t" id="wa-text"></div>
+    <div class="meta">20:15 <b>✓✓</b></div>
+  </div>
+
+  <!-- Scene 5: owner -->
+  <div id="copy5" class="copy">
+    <span class="eyebrow">Untuk pemilik</span>
+    <h2>Ganti menu <em>semudah edit teks.</em></h2>
+    <ul>
+      <li><b>✓</b>Harga &amp; menu di satu file</li>
+      <li><b>✓</b>Tandai "Habis" sekali ketik</li>
+      <li><b>✓</b>Online gratis, tanpa server</li>
+    </ul>
+  </div>
+  <div id="editor">
+    <div class="bar"><i></i><i></i><i></i><span>js/menu.js</span></div>
+    <pre id="code"></pre>
+  </div>
+  <div id="phoneD" class="phone"><div class="notch"></div><div class="screen">
+    <div class="sbar">SBAR</div>
+    <div class="content"><img src="shots/p-menu-0.png" alt=""><img id="price-new" src="shots/p-menu-price.png" alt=""></div>
+  </div></div>
+  <div id="chips5" class="float"><span class="chip blue"><span class="dot"></span>Status buka/tutup otomatis</span><span class="chip"><span class="dot"></span>Link + QR per meja</span></div>
+
+  <!-- Scene 6: CTA -->
+  <svg id="cup" viewBox="0 0 300 260" aria-hidden="true">
+    <ellipse cx="140" cy="244" rx="130" ry="12" fill="rgba(11,27,63,.15)"/>
+    <ellipse cx="140" cy="236" rx="120" ry="16" fill="#fff" stroke="#0b1b3f" stroke-width="6"/>
+    <path d="M40 90 H240 V160 Q240 228 172 228 H108 Q40 228 40 160 Z" fill="#013fd0" stroke="#0b1b3f" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M240 112 H262 Q292 112 292 142 Q292 172 262 172 H236" fill="none" stroke="#0b1b3f" stroke-width="12"/>
+    <ellipse cx="140" cy="90" rx="100" ry="16" fill="#6b3b1f" stroke="#0b1b3f" stroke-width="6"/>
+    <path d="M80 140 Q140 156 200 140" stroke="#ffb423" stroke-width="12" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div id="steams"></div>
+  <div id="cta-card">
+    <h2 id="cta-head"></h2>
+    <div id="cta-btn"><span class="glow"></span><span id="cta-text"></span> <span>→</span></div>
+    <div id="cta-sub"></div>
+  </div>
+  <div id="brand-foot"><span class="mk"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-4Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/></svg></span><span id="foot-text"></span></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>window.gsap || document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"><\/script>');</script>
+<script>
+// ---------- Text you can change, then re-render ----------
+const CONFIG = {
+  title: 'Menu Digital <em>Warkop</em>',
+  titleVertical: 'Menu Digital<br><em>Warkop</em>',
+  tagline: 'Scan QR · Pilih menu · Pesan via WhatsApp',
+  headline: 'Ngopi makin santai,<br><em>pesanan makin rapi.</em>',
+  headlineVertical: 'Ngopi<br>makin santai,<br><em>pesanan<br>makin rapi.</em>',
+  cta: 'Minta Demo Gratis',
+  ctaSub: 'Menu digital · QR per meja · Pesan via WhatsApp · Hosting gratis',
+  footer: 'Menu Digital Warkop · contoh: Warkop Kita',
+};
+// From shots/taps.json
+const TAPS = { tapAdd1: { left: 84.87, top: 51.21 }, tapAdd2: { left: 84.87, top: 50.86 }, tapAdd3: { left: 84.87, top: 51.13 }, tapSend: { left: 50, top: 89.24 } };
+const WA_TO = 'Warkop Kita';
+const WA_TEXT = 'Halo Warkop Kita, saya mau pesan:\n\nNama: Budi\nTipe: Makan di tempat\nMeja: 4\n\n1. 2x Es Kopi Susu Gula Aren — Rp30.000\n2. 1x Indomie Goreng Telur — Rp12.000\n\nTotal: Rp42.000\nCatatan: Gula sedikit ya\n\nTerima kasih!';
+
+const params = new URLSearchParams(location.search);
+const VERTICAL = params.get('f') === 'v';
+if (VERTICAL) document.body.classList.add('v');
+const W = VERTICAL ? 1080 : 1920;
+const H = VERTICAL ? 1920 : 1080;
+function fit() { const s = Math.min(innerWidth / W, innerHeight / H); const st = document.getElementById('stage'); st.style.transformOrigin = '0 0'; st.style.transform = params.has('render') ? 'none' : `scale(${s})`; }
+fit(); addEventListener('resize', fit);
+
+const $ = (s) => document.querySelector(s);
+$('#logo-name').innerHTML = (VERTICAL ? CONFIG.titleVertical : CONFIG.title).split(/(<br>)/).map((part) => part === '<br>' ? part : part.replace(/<\/?em>/g, '').split(/\s+/).filter(Boolean).map((w) => `<span class="w">${part.includes('<em>') && /Warkop/.test(w) ? `<em>${w}</em>` : w}</span>`).join(' ')).join('');
+$('#tagline').textContent = CONFIG.tagline;
+$('#cta-head').innerHTML = VERTICAL ? CONFIG.headlineVertical : CONFIG.headline;
+$('#cta-text').textContent = CONFIG.cta;
+$('#cta-sub').textContent = CONFIG.ctaSub;
+$('#foot-text').textContent = CONFIG.footer;
+$('#wa-to').textContent = WA_TO;
+$('#wa-text').textContent = WA_TEXT;
+for (const [id, p] of Object.entries(TAPS)) Object.assign($('#' + id).style, { left: p.left + '%', top: p.top + '%' });
+const SBAR = '<span>9:41</span><span><svg width="66" height="16" viewBox="0 0 66 16"><g fill="currentColor"><rect x="0" y="10" width="3.5" height="5" rx="1"/><rect x="5.5" y="7" width="3.5" height="8" rx="1"/><rect x="11" y="4" width="3.5" height="11" rx="1"/><rect x="16.5" y="1" width="3.5" height="14" rx="1"/><path d="M33 4.5a10 10 0 0 1 7 2.8l-1.4 1.5a8 8 0 0 0-11.2 0L26 7.3a10 10 0 0 1 7-2.8Zm0 4a6 6 0 0 1 4.2 1.7L33 14.5l-4.2-4.3A6 6 0 0 1 33 8.5Z"/><rect x="43" y="2.5" width="20" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="45" y="4.5" width="14" height="7" rx="1.5"/><rect x="64" y="6" width="1.6" height="4" rx=".8"/></g></svg></span>';
+document.querySelectorAll('.sbar').forEach((s) => { s.innerHTML = SBAR; });
+
+let seed = 5;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+// Decorative QR pattern (not a real code)
+const qr = $('#qr');
+for (let y = 0; y < 21; y++) for (let x = 0; x < 21; x++) {
+  const finder = (a, b) => x >= a && x < a + 7 && y >= b && y < b + 7;
+  const f = finder(0, 0) || finder(14, 0) || finder(0, 14);
+  let on = rnd() > .5;
+  if (f) { const lx = x % 14 % 7, ly = y % 14 % 7; on = lx === 0 || ly === 0 || lx === 6 || ly === 6 || (lx > 1 && lx < 5 && ly > 1 && ly < 5); }
+  const i = document.createElement('i'); i.style.background = on ? '#0b1b3f' : 'transparent'; qr.appendChild(i);
+}
+
+// Scene 1: shouted orders and worn paper menus
+const SHOUTS = ['Mas, kopi satu!', 'Indomie dua ya!', 'Gula sedikit yaa', 'Meja berapa tadi?', 'Es tehnya mana?', 'Tambah pisang goreng!', 'Totalnya berapa?'];
+const shoutH = [[90, 70], [1380, 90], [620, 40], [120, 820], [1420, 800], [1020, 900], [500, 230]];
+const shoutV = [[60, 100], [520, 200], [80, 340], [560, 470], [60, 1400], [500, 1520], [140, 1660]];
+const shouts = SHOUTS.map((t, i) => {
+  const el = document.createElement('div'); el.className = 'shout'; el.textContent = t;
+  const [x, y] = (VERTICAL ? shoutV : shoutH)[i];
+  Object.assign(el.style, { left: x + 'px', top: y + 'px', transform: `rotate(${(rnd() - .5) * 8}deg)` });
+  $('#shouts').appendChild(el); return el;
+});
+const paperH = [[1640, 360, 9], [40, 400, -8], [1480, 640, -5]];
+const paperV = [[790, 1020, 8], [40, 1000, -7], [420, 1100, 4]];
+const papers = (VERTICAL ? paperV : paperH).map(([x, y, r]) => {
+  const el = document.createElement('div'); el.className = 'paper';
+  el.innerHTML = '<h4>MENU</h4><p><span>Kopi</span><s>4.000</s></p><p><span>Teh</span><span>3.000</span></p><p><span>Mie</span><s>10rb</s></p><p><span>Gorengan</span><span>1.500</span></p><div class="stain"></div>';
+  Object.assign(el.style, { left: x + 'px', top: y + 'px', transform: `rotate(${r}deg)` });
+  $('#papers').appendChild(el); return el;
+});
+
+// Scene 5: menu.js with the price being edited
+const CODE = `<span class="c">// Menu — ubah, tambah, atau hapus di sini</span>
+{ <span class="k">name</span>: <span class="s">"Kopi Tubruk"</span>, <span class="k">price</span>: <span class="n">5000</span> },
+{ <span class="k">name</span>: <span class="s">"Kopi Susu"</span>, <span class="k">price</span>: <span class="n">6000</span> },
+<span class="hlrow">{ <span class="k">name</span>: <span class="s">"Es Kopi Susu Gula Aren"</span>, <span class="k">price</span>: <span class="n" id="price">15000</span><span class="caret" id="caret"></span> },</span>
+{ <span class="k">name</span>: <span class="s">"Sanger Aceh"</span>, <span class="k">price</span>: <span class="n">8000</span> },
+{ <span class="k">name</span>: <span class="s">"Cokelat"</span>, <span class="k">price</span>: <span class="n">10000</span>, <span class="k">available</span>: <span class="n">false</span> },`;
+$('#code').innerHTML = CODE;
+
+// Steam for the CTA cup
+const cp = VERTICAL ? { x: 390, y: 1230 } : { x: 810, y: 640 };
+const steams = [0, 1, 2].map((i) => { const s = document.createElement('div'); s.className = 'steam'; Object.assign(s.style, { left: (cp.x + 100 + i * 45) + 'px', top: (cp.y - 20) + 'px' }); $('#steams').appendChild(s); return s; });
+
+// ---------- Timeline ----------
+gsap.defaults({ ease: 'power3.out' });
+const tl = gsap.timeline({ paused: true });
+const set = (sel, v) => gsap.set(sel, v);
+const EXIT_Y = VERTICAL ? 1300 : 1000;
+
+const SCENE_ELS = { 8.55: '#phoneA, #phoneB, #copy3, #tent', 13.9: '#phoneC, #copy4, #wa', 19.3: '#editor, #phoneD, #copy5, #chips5', 24.6: '#cup, #steams, #cta-card, #brand-foot' };
+Object.values(SCENE_ELS).forEach((sel) => set(sel, { visibility: 'hidden' }));
+Object.entries(SCENE_ELS).forEach(([at, sel]) => tl.set(sel, { visibility: 'visible' }, +at));
+[[14.4, '#phoneA, #phoneB, #copy3, #tent'], [20.0, '#phoneC, #copy4, #wa'], [25.2, '#editor, #phoneD, #copy5, #chips5']].forEach(([at, sel]) => tl.set(sel, { visibility: 'hidden' }, at));
+
+set('#bg-dots, #bg-glow', { opacity: 0 });
+set('#wipe, #wipe2', { scale: 0 });
+set('#logo', { opacity: 0 });
+set('#logo-name .w', { yPercent: 110, opacity: 0 });
+set('#logo-mark', { scale: 0, rotation: -25 });
+set('#tagline, #logo-chips .chip', { y: 30, opacity: 0 });
+set('.copy .eyebrow, .copy h2, .copy li', { y: 40, opacity: 0 });
+set('#phoneA', { y: 1000, rotation: -6 });
+set('#phoneB', { y: 1000, rotation: 6 });
+set('#phoneC', { y: 1000, rotation: -4 });
+set('#phoneD', { x: VERTICAL ? 600 : 800, rotation: 6 });
+set('#tent', { y: 500, opacity: 0 });
+set('#beam', { opacity: 0 });
+set('#m1, #m2, #m3, #m4, #cart-2, #price-new', { opacity: 0 });
+set('.tap', { scale: 0, opacity: 0 });
+set('#wa', { scale: .3, opacity: 0, transformOrigin: '0% 100%' });
+set('#editor', { y: 600, rotationX: 14, transformPerspective: 1600 });
+set('#chips5 .chip', { y: 40, opacity: 0 });
+set('#caret', { opacity: 0 });
+set('#cup', { y: 400, opacity: 0 });
+set('.steam', { opacity: 0, scaleY: .3, transformOrigin: '50% 100%' });
+set('#cta-card', { y: -60, opacity: 0, scale: .92 });
+set('#cta-btn', { scale: .6, opacity: 0 });
+set('#cta-sub, #brand-foot', { opacity: 0, y: 20 });
+set('#hook .line span', { yPercent: 110 });
+set('.shout, .paper', { scale: 0, opacity: 0 });
+
+// Scene 1 (0–4.6s)
+[...papers, ...shouts].forEach((m, i) => tl.to(m, { scale: 1, opacity: 1, duration: .35, ease: 'back.out(2.4)' }, .1 + i * .3));
+tl.to('#hook .line span', { yPercent: 0, duration: .8, stagger: .75, ease: 'power4.out' }, .5)
+  .to('#shouts', { y: VERTICAL ? -14 : -10, duration: .11, yoyo: true, repeat: 15, ease: 'sine.inOut' }, 1.8)
+  .to('.paper', { rotation: '+=4', duration: .5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 1.6);
+
+// Scene 2 (4.6–8.6s)
+tl.to('#wipe', { scale: 24, duration: .7, ease: 'power3.in' }, 4.0)
+  .to('#wipe2', { scale: 24, duration: .7, ease: 'power3.in' }, 4.45)
+  .set('#s1', { opacity: 0 }, 5.0)
+  .set('#bg-dots, #bg-glow', { opacity: 1 }, 5.0)
+  .set('#wipe', { opacity: 0 }, 5.0)
+  .to('#wipe2', { opacity: 0, duration: .4 }, 5.15)
+  .set('#logo', { opacity: 1 }, 4.9)
+  .to('#logo-mark', { scale: 1, rotation: 0, duration: .9, ease: 'back.out(1.8)' }, 4.95)
+  .to('#logo-name .w', { yPercent: 0, opacity: 1, duration: .7, stagger: .12, ease: 'back.out(1.5)' }, 5.3)
+  .to('#tagline', { y: 0, opacity: 1, duration: .7 }, 5.9)
+  .to('#logo-chips .chip', { y: 0, opacity: 1, duration: .6, stagger: .12, ease: 'back.out(1.6)' }, 6.25)
+  .to('#logo', { y: -40, opacity: 0, duration: .6, ease: 'power2.in' }, 8.05);
+
+const copyIn = (sel, at) => tl.to(`${sel} .eyebrow`, { y: 0, opacity: 1, duration: .6 }, at)
+  .to(`${sel} h2`, { y: 0, opacity: 1, duration: .8 }, at + .12)
+  .to(`${sel} li`, { y: 0, opacity: 1, duration: .6, stagger: .18 }, at + .45);
+const copyOut = (sel, at) => tl.to(`${sel} .eyebrow, ${sel} h2, ${sel} li`, { y: -30, opacity: 0, duration: .45, stagger: .04, ease: 'power2.in' }, at);
+const tapAt = (sel, at) => tl.to(sel, { scale: 1, opacity: 1, duration: .22, ease: 'power2.out' }, at).to(sel, { scale: 1.8, opacity: 0, duration: .45, ease: 'power2.out' }, at + .22);
+
+// Scene 3 — scan & pick (8.6–14s)
+tl.to('#tent', { y: 0, opacity: 1, duration: .9, ease: 'back.out(1.4)' }, 8.6)
+  .to('#beam', { opacity: 1, duration: .15 }, 9.3)
+  .fromTo('#beam', { top: 70 }, { top: 270, duration: .6, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 9.3)
+  .to('#beam', { opacity: 0, duration: .15 }, 10.5)
+  .to('#phoneA', { y: 0, rotation: -3, duration: 1.1 }, 8.75)
+  .to('#phoneB', { y: 0, rotation: 3, duration: 1.1 }, 9.0);
+copyIn('#copy3', 8.8);
+tapAt('#tapAdd1', 10.6); tl.set('#m1', { opacity: 1 }, 10.7);
+tapAt('#tapAdd2', 11.3); tl.set('#m2', { opacity: 1 }, 11.4);
+tl.to('#m3', { opacity: 1, duration: .25, ease: 'none' }, 12.0);
+tapAt('#tapAdd3', 12.6); tl.set('#m4', { opacity: 1 }, 12.7);
+tl.to('#phoneB', { scale: 1.03, duration: .15, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 12.7)
+  .to('#tent', { y: 400, opacity: 0, duration: .6, ease: 'power2.in' }, 13.4)
+  .to('#phoneA', { y: EXIT_Y, rotation: -10, duration: .9, ease: 'power3.in' }, 13.4)
+  .to('#phoneB', { y: EXIT_Y, rotation: 10, duration: .9, ease: 'power3.in' }, 13.5);
+copyOut('#copy3', 13.4);
+
+// Scene 4 — WhatsApp (14–19.4s)
+tl.to('#phoneC', { y: 0, rotation: -3, duration: 1.1 }, 14.0);
+copyIn('#copy4', 14.15);
+tl.to('#cart-2', { opacity: 1, duration: .3, ease: 'none' }, 15.2);
+tapAt('#tapSend', 16.0);
+tl.to('#phoneC', { scale: .97, duration: .12, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 16.0)
+  .fromTo('#wa', { x: VERTICAL ? 0 : -160, y: VERTICAL ? 100 : 60 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: .9, ease: 'back.out(1.4)' }, 16.3)
+  .to('#wa', { y: -12, duration: .7, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 17.2)
+  .to('#wa', { scale: .6, opacity: 0, duration: .45, ease: 'power2.in' }, 18.9)
+  .to('#phoneC', { y: EXIT_Y, rotation: -10, duration: .9, ease: 'power3.in' }, 18.95);
+copyOut('#copy4', 18.9);
+
+// Scene 5 — owner edits the menu (19.4–24.6s)
+tl.to('#editor', { y: 0, rotationX: 0, duration: 1.1 }, 19.4)
+  .to('#phoneD', { x: 0, rotation: 3, duration: 1, ease: 'back.out(1.2)' }, 19.9);
+copyIn('#copy5', 19.55);
+tl.to('#caret', { opacity: 1, duration: .05, repeat: 9, yoyo: true }, 20.5);
+const typed = ['1500', '150', '15', '1', '16', '160', '1600', '16000'];
+// The price text follows the playhead (works when seeking backwards too)
+const priceAt = (t) => (t < 21.0 ? '15000' : typed[Math.min(typed.length - 1, Math.floor((t - 21.0) / .12))]);
+tl.eventCallback('onUpdate', () => { $('#price').textContent = priceAt(tl.time()); });
+tl.to('#price-new', { opacity: 1, duration: .35, ease: 'power1.inOut' }, 22.3)
+  .to('#phoneD', { scale: 1.04, duration: .2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 22.3)
+  .to('#chips5 .chip', { y: 0, opacity: 1, duration: .6, stagger: .15, ease: 'back.out(1.8)' }, 22.6)
+  .to('#editor', { y: 700, opacity: 0, duration: .8, ease: 'power3.in' }, 24.2)
+  .to('#phoneD', { x: VERTICAL ? 700 : 900, duration: .8, ease: 'power3.in' }, 24.2)
+  .to('#chips5 .chip', { y: 40, opacity: 0, duration: .4, ease: 'power2.in' }, 24.1);
+copyOut('#copy5', 24.15);
+
+// Scene 6 — CTA (24.6–30s)
+tl.to('#cup', { y: 0, opacity: 1, duration: 1.0, ease: 'back.out(1.6)' }, 24.8)
+  .to('#cta-card', { y: 0, opacity: 1, scale: 1, duration: .9, ease: 'back.out(1.4)' }, 25.4)
+  .to('#cta-btn', { scale: 1, opacity: 1, duration: .7, ease: 'back.out(2)' }, 26.1)
+  .to('#cta-sub', { opacity: 1, y: 0, duration: .6 }, 26.5)
+  .to('#brand-foot', { opacity: 1, y: 0, duration: .6 }, 26.8)
+  .fromTo('#cta-btn .glow', { scale: 1, opacity: .9 }, { scale: 1.12, opacity: 0, duration: 1.1, repeat: 2, ease: 'power1.out' }, 26.8)
+  .to('#cta-btn', { scale: 1.04, duration: .55, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 26.8);
+steams.forEach((s, i) => tl.to(s, { opacity: 1, scaleY: 1, duration: .5, ease: 'power2.out' }, 25.6 + i * .15)
+  .to(s, { y: -60, opacity: 0, duration: 1.3, repeat: 2, ease: 'sine.out' }, 26.1 + i * .25));
+tl.to({}, { duration: .01 }, 30);
+
+window.DURATION = 30;
+window.seek = (t) => { tl.seek(t, false); };
+window.ready = Promise.all([document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))]);
+if (!params.has('render')) { tl.play(0); tl.eventCallback('onComplete', () => tl.play(0)); }
+</script>
+</body>
+</html>
