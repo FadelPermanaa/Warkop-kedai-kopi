@@ -27,7 +27,7 @@ Versi 9:16 punya panel **"Diperbesar"** di bawah laptop. Panel ini memperbesar b
 | 42,6–46,8 | Stok | Kategori Camilan: Bakwan "Habis", Tahu Isi "Sisa 3" |
 | 46,8–51,8 | Tutup kas | Uang di laci dihitung, kurang Rp2.000 langsung terlihat |
 | 51,8–56,4 | Laporan | Laporan bulan lalu: pendapatan, menu terlaris, jam ramai |
-| 56,4–62 | Ajakan | *"Internet putus? Kasir tetap jalan."* + tombol **Minta demo**, dibuat oleh Linea.js |
+| 56,4–62 | Ajakan | *"Internet putus? Kasir tetap jalan."* + tombol **Minta demo** |
 
 ## Mengubah teks lalu render ulang
 
